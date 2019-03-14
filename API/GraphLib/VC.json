@@ -1,0 +1,46 @@
+{
+  "version":{
+    "author":"THU",
+    "date":"xxxx-xx-xx",
+    "nodeNum":3
+  },
+
+  "node":[
+
+    {
+      "startNode":"True",
+      "name": "request_handler",
+      "module": "RequestHandler",
+      "input":{
+        "request":"None"
+      },
+      "output": {
+        "data_file_path":""
+      }
+    },
+
+    {
+      "name":"_VC",
+      "module":"Voice_Conversion",
+      "input":{
+        "wav_file_path":"request_handler/data_file_path"
+      },
+      "output": {
+        "audio_bytes": ""
+      }
+    },
+
+    {
+      "name":"response_handler",
+      "module":"ResponseHandler",
+      "input":{
+        "data":"_VC/audio_bytes",
+        "return_type": {"return_type":"audio"}
+      },
+      "output":{
+        "RetDataDict":""
+      }
+    }
+
+  ]
+}

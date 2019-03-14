@@ -1,0 +1,15 @@
+concurrent processing:  1
+failed request: 0
+total time:  6.520282983779907  s
+seconds  per completed request:  6.520282983779907  s/request
+completed request  per second:  0.15336757660482472  request/s
+concurrent processing:  10
+failed request: 0
+total time:  63.09731698036194  s
+seconds  per completed request:  6.3097316980361935  s/request
+completed request  per second:  0.1584853442042923  request/s
+concurrent processing:  30
+failed request: 0
+total time:  179.4825782775879  s
+seconds  per completed request:  5.9827526092529295  s/request
+completed request  per second:  0.16714714201175546  request/s

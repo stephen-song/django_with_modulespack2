@@ -1,0 +1,50 @@
+{
+  "version":{
+    "author":"THU",
+    "date":"xxxx-xx-xx",
+    "nodeNum":3
+  },
+
+  "node":[
+
+    {
+      "startNode":"True",
+      "name":"mfcc_spec_mel",
+      "module":"Mfcc_Spec_Mel",
+      "input":{
+        "wav_file":""
+      },
+      "output": {
+        "mfcc": "",
+        "spec":"",
+        "mel":""
+      }
+    },
+
+    {
+      "name":"voice_conversion",
+      "module":"VC_serving",
+      "input":{
+        "mfcc":"mfcc_spec_mel/mfcc",
+        "spec":"mfcc_spec_mel/spec",
+        "mel":"mfcc_spec_mel/mel"
+      },
+      "output": {
+        "ppgs": "",
+        "pred_spec":""
+      }
+    },
+
+    {
+      "name":"vocoder",
+      "module":"Vocoder",
+      "input":{
+        "pred_spec":"voice_conversion/pred_spec"
+      },
+      "output":{
+        "audio_stream":""
+      }
+    }
+
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "version":{
+    "author":"THU",
+    "date":"xxxx-xx-xx",
+    "nodeNum":1
+  },
+
+  "node":[
+    {
+      "startNode":"True",
+      "name": "RMSE",
+      "module": "RMSE",
+      "input":{
+        "x1":"None",
+        "x2":"None"
+      },
+      "output": {
+        "y":"None"
+      }
+    }
+  ]
+}
