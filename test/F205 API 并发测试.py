@@ -9,10 +9,10 @@ def main():
     benchmark(1)
     time.sleep(10)
 
-    benchmark(2)
+    benchmark(5)
     time.sleep(10)
 
-    benchmark(10)
+    # benchmark(10)
     # time.sleep(10)
 
     # benchmark(50)
@@ -21,8 +21,8 @@ def main():
     # benchmark(100)
     # time.sleep(3)
 
-end_point = 'http://219.223.174.254:8080/THU/VC_api/' # THU/VC_api
-audio_64_string = base64.b64encode(open("C:/Users/LT/Desktop/source.wav","rb").read())
+end_point = 'http://219.223.174.254:8080/API/' # THU/VC_api
+audio_64_string = base64.b64encode(open("source.wav","rb").read())
 input_data = {"data":audio_64_string.decode('utf-8'),"service":"VC"}
 # input_data = {"data":audio_64_string.decode('utf-8')[0:10]}
 headers = {'User-Agent' : 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'}

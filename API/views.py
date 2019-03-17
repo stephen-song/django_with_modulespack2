@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse,HttpResponse
+from multiprocessing import Process,Pool
+
 
 # import numpy as np
 # import tensorflow as tf
@@ -17,7 +19,6 @@ from django.http import JsonResponse,HttpResponse
 import time,os,json,copy
 from API.ModulesPack2.session.base import Session
 from API.GraphLib import get_graph
-from base64 import b64decode
 
 # Create your views here.
 @csrf_exempt
@@ -36,9 +37,25 @@ sess = Session(ModuleLibPath=os.path.expanduser('~/0307_django/API/ModuleLib')) 
 ModuleTable, toposort = sess.build_graph(graph)
 print('outside init time:',time.time()-begin)
 
+
+# pool = Pool(processes=10)
+# def service_target(sess,beg,request,fetches,ModuleTable, graph):
+#     print('Process : %s' % os.getpid())
+#     beg2 = time.time()
+#
+#     feed_dic = {'request_handler': {'request': request}}
+#     result = copy.deepcopy(sess).run(fetches=fetches,
+#                                      ModuleTable=copy.deepcopy(ModuleTable)
+#                                      , graph=graph, feed_dict=feed_dic)
+#
+#     beg3 = time.time()
+#     print('run', beg3 - beg2)
+#     print('total', time.time() - beg)
+#     return result['RetDataDict']
+
 @csrf_exempt
 def API(request):
-
+    print('father Process : %s' % os.getpid())
     service_type = 'test'
     beg = time.time()
     if request.method == "POST":
@@ -70,11 +87,20 @@ def API(request):
     print('init_sess_graph',beg2-beg)
 
     feed_dic = {'request_handler': {'request': request}}
-    result = sess.run(fetches=toposort, ModuleTable=ModuleTable
-                      , graph=graph, feed_dict=feed_dic)
+    result = copy.deepcopy(sess).run(fetches=toposort,ModuleTable=copy.deepcopy(ModuleTable)
+                    ,graph=graph, feed_dict=feed_dic)
 
     beg3 = time.time()
     print('run',beg3-beg2)
     print('total',time.time() - beg)
 
     return JsonResponse(result['RetDataDict'])
+
+
+    # result = pool.apply_async(service_target,args=(sess,beg,request,toposort,ModuleTable,graph))
+    # while 1:
+    #     if result.successful():
+    #         response = JsonResponse(result.get())
+    #         break
+    #
+    # return response
