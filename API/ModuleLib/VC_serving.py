@@ -5,13 +5,21 @@ from grpc.beta import implementations
 from tensorflow.contrib.util import make_tensor_proto
 # TensorFlow serving stuff to send messages
 from tensorflow_serving.apis import predict_pb2
-from tensorflow_serving.apis import prediction_service_pb2
+from tensorflow_serving.apis import prediction_service_pb2_grpc
 
 from API.ModulesPack2.module.base import Module
 from API.ModulesPack2.module.module_desc import ModuleDesc,InputDesc,OutputDesc
 import time
+from random import choice
 
 __all__ = ['VC_serving']
+
+tf_serving_server = [
+    {'server':'172.17.0.2:9000','name':'VC2.1'},
+    {'server': '172.17.0.2:9002', 'name': 'VC2.2'}
+]
+indexs = [0,1]
+
 class VC_serving(Module):
     @staticmethod
     def make_module_description():
@@ -35,13 +43,16 @@ class VC_serving(Module):
         mel = inputs['mel']
 
         # 处理数据
-        server = '172.17.0.2:9000'
+        index = choice(indexs)
+        print('index:',index)
+        server = tf_serving_server[index]['server']
         host, port = server.split(':')
         channel = implementations.insecure_channel(host, int(port))
-        stub = prediction_service_pb2.beta_create_PredictionService_stub(channel)
+        # stub = prediction_service_pb2.beta_create_PredictionService_stub(channel)
+        stub = prediction_service_pb2_grpc.PredictionServiceStub(channel._channel)
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'VC2.1'
+        request.model_spec.name = tf_serving_server[index]['name']
         request.model_spec.signature_name = 'prediction_pipeline'
         request.inputs['x_mfccs:0'].CopyFrom(
             make_tensor_proto(mfcc, shape=[1, 334, 60], dtype='float'))  # 1是batch_size
