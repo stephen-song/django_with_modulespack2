@@ -12,7 +12,7 @@ client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
         return fp.read()
-speech = get_file_content('C:/Users/LT/Desktop/source.wav')
+speech = get_file_content('source.wav')
 # 识别本地文件
 
 error_result = []
@@ -60,13 +60,13 @@ def benchmark(batch_size):
     print('吞吐率 requests  per second: ', batch_size * 1. / (end - beg) * 1. , ' request/s')
 
 def main():
-    benchmark(1)
-    time.sleep(10)
+    # benchmark(1)
+    # time.sleep(10)
+    #
+    # benchmark(2)
+    # time.sleep(10)
 
-    benchmark(2)
-    time.sleep(10)
-
-    benchmark(10)
+    benchmark(20)
     # time.sleep(10)
 
     # benchmark(50)

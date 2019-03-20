@@ -6,13 +6,13 @@ import json
 
 
 def main():
-    benchmark(1)
-    time.sleep(10)
+    benchmark(2)
+    time.sleep(3)
 
-    benchmark(5)
-    time.sleep(10)
-
-    # benchmark(10)
+    # benchmark2(2)
+    # time.sleep(10)
+    #
+    # benchmark2(2)
     # time.sleep(10)
 
     # benchmark(50)
@@ -68,6 +68,32 @@ def benchmark(batch_size):
     print('total time: ',(end-beg),' s')
     print('seconds  per completed request: ', (end-beg)*1./batch_size*1.,' s/request')
     print('吞吐率 requests  per second: ', batch_size * 1. / (end - beg) * 1. , ' request/s')
+
+
+
+def benchmark2(batch_size):
+    error_result.clear()
+    correct_result.clear()
+    beg = time.time()
+    for i in range(batch_size):
+        try:
+            result = requests.post(end_point, json=input_data, headers=headers)  # 这里不需要dump
+            ResponseTime = float(result.elapsed.seconds)  # 获取响应时间，单位s
+            if result.status_code != 200:
+                error_result.append("0")
+            else:
+                correct_result.append(ResponseTime)
+                print(result)
+        except Exception as e:
+            print(e)
+    end = time.time()
+    print('concurrent processing: ', batch_size)
+    print('failed request:', len(error_result))
+    print('correct_result_time: ', correct_result)
+    print('avg_response time: ', float(sum(correct_result)) / float(len(correct_result)))
+    print('total time: ', (end - beg), ' s')
+    print('seconds  per completed request: ', (end - beg) * 1. / batch_size * 1., ' s/request')
+    print('吞吐率 requests  per second: ', batch_size * 1. / (end - beg) * 1., ' request/s')
 
 
 if __name__=='__main__':
