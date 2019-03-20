@@ -1,20 +1,9 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse,HttpResponse
-from multiprocessing import Process,Pool
+from django.views.decorators.cache import cache_page
+# from multiprocessing import Process,Pool
 
-
-# import numpy as np
-# import tensorflow as tf
-# import os,uuid,io,json,soundfile
-# from PIL import Image
-# from base64 import b64decode,b64encode
-# # Communication to TensorFlow server via gRPC
-# from grpc.beta import implementations
-# # TensorFlow serving stuff to send messages
-# from tensorflow_serving.apis import predict_pb2
-# from tensorflow_serving.apis import prediction_service_pb2
-# from tensorflow.contrib.util import make_tensor_proto
 
 import time,os,json,copy
 from API.ModulesPack2.session.base import Session
@@ -22,6 +11,7 @@ from API.GraphLib import get_graph
 
 # Create your views here.
 @csrf_exempt
+@cache_page(60*5)
 def home(request):
     return render(request, 'classify.html', {})
 
@@ -87,7 +77,9 @@ def API(request):
     print('init_sess_graph',beg2-beg)
 
     feed_dic = {'request_handler': {'request': request}}
-    result = copy.deepcopy(sess).run(fetches=toposort,ModuleTable=copy.deepcopy(ModuleTable)
+
+    MT = copy.deepcopy(ModuleTable)
+    result = sess.run(fetches=toposort,ModuleTable=MT
                     ,graph=graph, feed_dict=feed_dic)
 
     beg3 = time.time()
