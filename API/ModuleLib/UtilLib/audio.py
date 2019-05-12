@@ -11,6 +11,8 @@ from scipy import signal
 
 from API.ModuleLib.UtilLib import params as hp
 
+def load_wav(path):
+  return librosa.core.load(path, sr=16000)[0]
 
 def read_wav(path, sr, duration=None, mono=True):
     wav, _ = librosa.load(path, mono=mono, sr=sr, duration=duration)

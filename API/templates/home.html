@@ -1,0 +1,166 @@
+
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Default prototype description">
+    <meta name="keywords" content="prototype">
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+	<link rel="icon" href={% static 'img/favicon.ico' %} mce_href={% static 'img/favicon.ico' %} type="image/x-icon">
+    <link rel="shortcut icon" href={% static 'img/favicon.ico' %} mce_href={% static 'img/favicon.ico' %} type="image/x-icon">
+	<title>demo 演示系统</title>
+</head>
+<body>
+	<script src={% static 'js/jquery.min.js' %}></script>
+	<script src={% static 'js/bootstrap.min.js' %}></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<img class="img-responsive center-block" src={% static 'img/bar.png' %} width="960"/>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-2">
+                </br>
+				<img class="img-responsive center-block" src={% static 'img/logo.png' %} height="80%" width="80%"  />
+			</div>
+			<div class="col-md-8" align="right">
+
+				<font color="DarkMagenta">
+					<h1>人机语音交互实验室 · 演示系统</h1>
+					<h1>Lab for Human Computer Speech Interaction</h1>
+					<h5>计算机科学与技术系 · 清华大学</h5>
+					<h5>Department of Computer Science and Technology · Tsinghua University</h5>
+                </font>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<img class="img-responsive center-block" src={% static 'img/bar.png' %} width="960"/>
+			</div>
+		</div></br>
+
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-10">
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">
+				            <strong>ASR:</strong> Automatic Speech Recognition System.
+				        </h3>
+				    </div>
+				    <div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+				       			<img class="img-responsive center-block" src={% static 'img/wavnet.png' %} />
+							</div>
+							<div class="col-md-8">
+								<h4>提供了一个基于深度学习的语音识别系统。该系统的声学模型采用mfcc特征作为网络输入，使用空洞卷积和残差连接设计神
+                                    经网络模型，使用CTC损失作为模型的优化目标。该系统的语言模型借鉴了transformer的结构。注：当前模型为中文语音识别模型，其声学模型将语音转化为拼音，
+                                    语言模型将拼音转化为汉字。</h4>
+								<div class="row"></br>
+									<div class="col-md-4">
+										<a href="/ASR/" ><font color="DarkMagenta" size="3">在线测试</font></a>
+									</div>
+									<div class="col-md-4">
+										<a href="/ASR"><font color="DarkMagenta" size="3">演示实例</font></a>
+									</div>
+								</div>
+							</div>
+						</div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-10">
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">
+				            <strong>VC:</strong> Voice Conversion System.
+				        </h3>
+				    </div>
+				    <div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+				       			<img class="img-responsive center-block" src={% static 'img/vc.png' %} />
+							</div>
+							<div class="col-md-8">
+								<h4>提供了一个基于深度学习的音色转换(女声转男声)系统。该系统采用了分层级联的训练框架。在训练阶段1，使用多人语音数据训练
+                                说话人独立的ppg分类模型，在训练阶段2，使用ppg和目标男性说话人语音数据训练专职于目标男性音色的语音合成模型。
+                                注：当前模型为英语音色转换模型，将任意说话人音色转换为单一目标男性的音色。</h4>
+								<div class="row"></br>
+									<div class="col-md-4">
+										<a href="/VC/"><font color="DarkMagenta" size="3">在线测试</font></a>
+									</div>
+									<div class="col-md-4">
+										<a href="/VC"><font color="DarkMagenta" size="3">演示实例</font></a>
+									</div>
+								</div>
+							</div>
+						</div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-10">
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">
+				            <strong>友情链接 & 联系我们</strong>
+				        </h3>
+				    </div>
+				    <div class="panel-body">
+						<div class="row">
+							<div class="col-md-2">
+				       			<a href="http://www.cs.tsinghua.edu.cn/">
+                                    <img class="img-responsive center-block" src={% static 'img/cslogo.png' %} />
+                                </a>
+							</div>
+							<div class="col-md-2">
+
+							</div>
+							<div class="col-md-4">
+							</div>
+							<div class="col-md-4"></br></br>
+								<address>
+								  	<strong>地址：</strong>深圳市清华大学国际研究生院F楼205</br>
+	  								<strong>电话/传真：</strong>(+86)-755-2603.6771</br>
+	  								<strong>邮编：</strong>0755-518052</br>
+	  								<strong>E-mail：</strong>hcsi@mail.tsinghua.edu.cn
+              					</address>
+							</div>
+						</div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+
+		<div class="row">
+			<p align="center">&copy; 清华大学 2019</p>
+		</div>
+	</div>
+</body>
+</html>
+

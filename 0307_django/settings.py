@@ -126,7 +126,7 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "API/templates"),
-    os.path.join(BASE_DIR, "common_static"),
+    #os.path.join(BASE_DIR, "common_static"),
 ]
 
 

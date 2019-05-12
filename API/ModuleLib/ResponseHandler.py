@@ -24,14 +24,15 @@ class ResponseHandler(Module):
         data = inputs['data']
         return_type = inputs['return_type']
 
-        # 处理数据
-        stream = b64encode(data)
-        # base64 to str
-        stream = str(stream, 'utf-8')
         if return_type == 'audio':
+            # 处理数据
+            stream = b64encode(data)
+            # base64 to str
+            stream = str(stream, 'utf-8')
             stream = 'data:audio/wav;base64,' + stream
+
         elif return_type == 'text':
-            stream = 'data:text/txt;base64,' + stream
+            stream = data
 
         # 返回
         DataDict = {'result':stream, 'success': True}

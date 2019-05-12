@@ -8,8 +8,8 @@
   "node":[
     {
       "startNode":"True",
-      "name": "RMSE",
-      "module": "RMSE",
+      "name": "_test",
+      "module": "Test",
       "input":{
         "x1":"None",
         "x2":"None"

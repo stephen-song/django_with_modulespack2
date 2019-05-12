@@ -3,15 +3,16 @@ from API.ModulesPack2.module.module_desc import ModuleDesc,InputDesc,OutputDesc
 from API.GraphLib import get_graph
 import os,time
 from API.ModuleLib import ModuleLibPath
-__all__ = ['Voice_Conversion']
+
+__all__ = ['Automatic_Speech_Recognition']
 
 
-vc_graph = get_graph('_VC')
+asr_graph = get_graph('_ASR')
 from API.ModulesPack2.session.base import Session
-vc_sess = Session(ModuleLibPath=ModuleLibPath)
-vc_ModuleTable, vc_toposort = vc_sess.build_graph(vc_graph)
+asr_sess = Session(ModuleLibPath=ModuleLibPath)
+asr_ModuleTable, asr_toposort = asr_sess.build_graph(asr_graph)
 
-class Voice_Conversion(Module):
+class Automatic_Speech_Recognition(Module):
 
     @staticmethod
     def make_module_description():
@@ -19,7 +20,7 @@ class Voice_Conversion(Module):
             'wav_file_path': InputDesc(datatype='string', datashape=(None,))
         }
         outputdesc = {
-            'audio_bytes': OutputDesc(datatype='string', datashape=(None,))
+            'text': OutputDesc(datatype='string', datashape=(None,))
         }
         MD = ModuleDesc(inputdesc, outputdesc)
         return MD
@@ -34,14 +35,14 @@ class Voice_Conversion(Module):
         # graph = get_graph('_VC')
         # from API.ModulesPack2.session.base import Session
         # sess = Session(ModuleLibPath=os.path.expanduser('~/0307_django/API/ModuleLib'))
-        # ModuleTable, toposort = sess.build_graph(vc_graph)
+        # ModuleTable, toposort = sess.build_graph(graph)
 
-        feed_dic = {'mfcc_spec_mel': {'wav_file': wav_file}}
-        result = vc_sess.run(fetches=vc_toposort, ModuleTable=vc_ModuleTable
-                          , graph=vc_graph, feed_dict=feed_dic)
+        feed_dic = {'audio2mfcc': {'wav_file': wav_file}}
+        result = asr_sess.run(fetches=asr_toposort, ModuleTable=asr_ModuleTable
+                          , graph=asr_graph, feed_dict=feed_dic)
 
 
         # 返回
-        ret = { 'audio_bytes': result['audio_stream'] }
-        print('Voice_Conversion Time:' ,time.time() - beg )
+        ret = { 'text': result['HanZi'] }
+        print('Automatic_Speech_Recognition Time:' ,time.time() - beg )
         return ret

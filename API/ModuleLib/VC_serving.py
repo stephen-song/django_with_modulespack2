@@ -15,8 +15,8 @@ from random import choice
 __all__ = ['VC_serving']
 
 tf_serving_server = [
-    {'server':'172.17.0.2:9000','name':'VC2.1'},
-    {'server': '172.17.0.2:9002', 'name': 'VC2.2'}
+    {'server':'219.223.172.28:9003','name':'VC2.1'},
+    {'server': '219.223.172.28:9004', 'name': 'VC2.2'}
 ]
 indexs = [0,1]
 
@@ -56,12 +56,14 @@ class VC_serving(Module):
         request.model_spec.signature_name = 'prediction_pipeline'
         request.inputs['x_mfccs:0'].CopyFrom(
             make_tensor_proto(mfcc, shape=[1, 334, 60], dtype='float'))  # 1是batch_size
-        request.inputs['y_spec:0'].CopyFrom(make_tensor_proto(spec, shape=[1, 334, 569], dtype='float'))
-        request.inputs['y_mel:0'].CopyFrom(make_tensor_proto(mel, shape=[1, 334, 90], dtype='float'))
+        request.inputs['y_spec:0'].CopyFrom(
+            make_tensor_proto(spec, shape=[1, 334, 569], dtype='float'))
+        request.inputs['y_mel:0'].CopyFrom(
+            make_tensor_proto(mel, shape=[1, 334, 90], dtype='float'))
 
-        result = stub.Predict(request, 60.0)
-        pred_spec = np.array(result.outputs['pred_spec:0'].float_val).reshape(1, 334, 569)
-        ppgs = np.array(result.outputs['ppgs:0'].float_val).reshape(1, 334, 61)
+        result=stub.Predict(request, 60.0)
+        pred_spec=np.array(result.outputs['pred_spec:0'].float_val).reshape(1, 334, 569)
+        ppgs=np.array(result.outputs['ppgs:0'].float_val).reshape(1, 334, 61)
         # np.save('source.npy',pred_spec)
 
         # 返回

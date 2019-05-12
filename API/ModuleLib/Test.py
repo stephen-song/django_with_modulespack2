@@ -3,8 +3,8 @@ from API.ModulesPack2.module.module_desc import ModuleDesc,InputDesc,OutputDesc
 from API.ModulesPack2.graph.base import ModuleGraph
 # from ModulesPack2.session import Session
 
-__all__ = ['RMSE']
-class RMSE(Module):
+__all__ = ['Test']
+class Test(Module):
 
     def __init__(self):
         pass
@@ -22,7 +22,7 @@ class RMSE(Module):
         x1 = inputs['x1']
         x2 = inputs['x2']
 
-        graph = ModuleGraph(JsonFile='GraphLib/RMSE.json')
+        graph = ModuleGraph(JsonFile='GraphLib/_test.json')
         from API.ModulesPack2.session.base import Session
         sess = Session(ModuleLibPath='D:\pycharm_proj/0307_django\API\ModuleLib')
         feed_dic = {'firstadd': {'x1': x1, 'x2': x2}}

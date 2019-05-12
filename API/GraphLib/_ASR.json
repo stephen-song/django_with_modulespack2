@@ -1,0 +1,47 @@
+{
+  "version":{
+    "author":"THU",
+    "date":"xxxx-xx-xx",
+    "nodeNum":3
+  },
+
+  "node":[
+
+    {
+      "startNode":"True",
+      "name":"audio2mfcc",
+      "module":"Mfcc",
+      "input":{
+        "wav_file":""
+      },
+      "output": {
+        "mfcc": "",
+        "seq_len" : ""
+      }
+    },
+
+    {
+      "name":"AcousticModel",
+      "module":"AM_serving",
+      "input":{
+        "mfcc":"audio2mfcc/mfcc",
+        "len":"audio2mfcc/seq_len"
+      },
+      "output": {
+        "PinYin": ""
+      }
+    },
+
+    {
+      "name":"LanguageModel",
+      "module":"LM_serving",
+      "input":{
+        "PinYin":"AcousticModel/PinYin"
+      },
+      "output":{
+        "HanZi":""
+      }
+    }
+
+  ]
+}

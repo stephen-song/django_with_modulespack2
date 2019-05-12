@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="64c35b7a-5a89-4bf2-880f-81711ce460dd" name="0307_django" url="http://219.223.174.254">
-        <fileTransfer host="219.223.174.254" port="22" rootFolder="/home/currycode" accessType="SFTP">
+      <webServer id="64c35b7a-5a89-4bf2-880f-81711ce460dd" name="0307_django" url="http://219.223.172.28">
+        <fileTransfer host="219.223.172.28" port="22" rootFolder="/home/currycode" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

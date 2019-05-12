@@ -8,12 +8,22 @@ from django.views.decorators.cache import cache_page
 import time,os,json,copy
 from API.ModulesPack2.session.base import Session
 from API.GraphLib import get_graph
-
+from API.ModuleLib import ModuleLibPath
 # Create your views here.
 @csrf_exempt
 @cache_page(60*5)
 def home(request):
-    return render(request, 'classify.html', {})
+    return render(request, 'home.html', {})
+
+@csrf_exempt
+@cache_page(60*5)
+def VC(request):
+    return render(request, 'VC.html', {})
+
+@csrf_exempt
+@cache_page(60*5)
+def ASR(request):
+    return render(request, 'ASR.html', {})
 
 @csrf_exempt
 def test(request):
@@ -23,8 +33,11 @@ def test(request):
 begin = time.time()
 print('start init')
 graph = get_graph('VC')
-sess = Session(ModuleLibPath=os.path.expanduser('~/0307_django/API/ModuleLib')) # 'D:\pycharm_proj/0307_django\API\ModuleLib'
+sess = Session(ModuleLibPath=ModuleLibPath)
 ModuleTable, toposort = sess.build_graph(graph)
+graph2 = get_graph('ASR')
+sess2 = Session(ModuleLibPath=ModuleLibPath)
+ModuleTable2, toposort2 = sess2.build_graph(graph2)
 print('outside init time:',time.time()-begin)
 
 
@@ -75,12 +88,18 @@ def API(request):
 
     beg2 = time.time()
     print('init_sess_graph',beg2-beg)
+    if service_type == 'VC':
+        feed_dic = {'request_handler': {'request': request}}
 
-    feed_dic = {'request_handler': {'request': request}}
+        MT = copy.deepcopy(ModuleTable)
+        result = sess.run(fetches=toposort,ModuleTable=MT
+                        ,graph=graph, feed_dict=feed_dic)
+    elif service_type == 'ASR':
+        feed_dic2 = {'request_handler': {'request': request}}
 
-    MT = copy.deepcopy(ModuleTable)
-    result = sess.run(fetches=toposort,ModuleTable=MT
-                    ,graph=graph, feed_dict=feed_dic)
+        MT2 = copy.deepcopy(ModuleTable2)
+        result = sess2.run(fetches=toposort2, ModuleTable=MT2
+                          , graph=graph2, feed_dict=feed_dic2)
 
     beg3 = time.time()
     print('run',beg3-beg2)
